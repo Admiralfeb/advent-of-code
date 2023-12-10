@@ -62,7 +62,6 @@ impl Game {
         let mut blue: Option<i32> = None;
 
         for run in &self.runs {
-            println!("run: {:?}", run);
             if run.red > 0 {
                 red = match red {
                     None => Some(run.red),
@@ -90,10 +89,6 @@ impl Game {
         let lowest_green = green.unwrap();
         let lowest_blue = blue.unwrap();
 
-        println!(
-            "lowest numbers. red: {}, green: {}, blue: {}",
-            lowest_red, lowest_green, lowest_blue
-        );
         lowest_red * lowest_green * lowest_blue
     }
 }
@@ -135,7 +130,6 @@ pub fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
     let mut result = 0;
     for game in &games {
         let power = game.power();
-        println!("power {}", power);
         result += power;
     }
 

@@ -1,9 +1,10 @@
-mod day1;
-mod day2;
-mod day3;
+mod days;
+
+use days::*;
 
 fn main() {
     day1::print_puzzles();
     day2::print_puzzles();
     day3::print_puzzles();
+    day4::print_puzzles();
 }

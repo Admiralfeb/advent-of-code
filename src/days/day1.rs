@@ -118,7 +118,6 @@ mod tests {
     #[test]
     fn test_puzzle1() {
         let path = Path::new("data/day1-test-input.txt");
-        println!("{}", path.display());
         let result = puzzle1(path).unwrap();
         assert_eq!(142, result);
     }
@@ -126,7 +125,6 @@ mod tests {
     #[test]
     fn test_puzzle2() {
         let path = Path::new("data/day1-test-input2.txt");
-        println!("{}", path.display());
         let result = puzzle2(path).unwrap();
         assert_eq!(281, result);
     }
