@@ -18,7 +18,7 @@ pub fn print_puzzles() {
 /*
 * Iterate through the digits in each line and create a number. Sum the results of all line numbers.
 */
-pub fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
+fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
     let input_value = fs::read_to_string(path)?;
     let mut result: i32 = 0;
     for line in input_value.lines() {
@@ -35,7 +35,7 @@ pub fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
     Ok(result)
 }
 
-pub fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
+fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
     let input_value = fs::read_to_string(path)?;
     let mut result: i32 = 0;
     for line in input_value.lines() {
