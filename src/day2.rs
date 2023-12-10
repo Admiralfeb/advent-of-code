@@ -101,7 +101,7 @@ impl Game {
 pub fn print_puzzles() {
     let path = Path::new("data/day2-input.txt");
     println!(
-        "day 1 results: {}, {}",
+        "day 2 results: {}, {}",
         puzzle1(path).unwrap(),
         puzzle2(path).unwrap()
     )
