@@ -60,49 +60,6 @@ fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
             .map(|v| v.to_string())
             .collect();
 
-        // let digs: Vec<String> = line
-        //     .char_indices()
-        //     .filter_map(|(i, _)| {
-        //         regex
-        //             .find_iter(&line[i..])
-        //             .filter_map(|digit| {
-        //                 return match digit.as_str() {
-        //                     "0" | "zero" => Some("0"),
-        //                     "1" | "one" => Some("1"),
-        //                     "2" | "two" => Some("2"),
-        //                     "3" | "three" => Some("3"),
-        //                     "4" | "four" => Some("4"),
-        //                     "5" | "five" => Some("5"),
-        //                     "6" | "six" => Some("6"),
-        //                     "7" | "seven" => Some("7"),
-        //                     "8" | "eight" => Some("8"),
-        //                     "9" | "nine" => Some("9"),
-        //                     _ => None,
-        //                 };
-        //             })
-        //             .map(|digit| Some(digit.to_string()))
-        //             .collect::<Option<String>>()
-        //     })
-        //     .collect();
-        // let digits: Vec<String> = regex
-        //     .find_iter(line)
-        //     .filter_map(|digit| {
-        //         return match digit.as_str() {
-        //             "0" | "zero" => Some("0"),
-        //             "1" | "one" => Some("1"),
-        //             "2" | "two" => Some("2"),
-        //             "3" | "three" => Some("3"),
-        //             "4" | "four" => Some("4"),
-        //             "5" | "five" => Some("5"),
-        //             "6" | "six" => Some("6"),
-        //             "7" | "seven" => Some("7"),
-        //             "8" | "eight" => Some("8"),
-        //             "9" | "nine" => Some("9"),
-        //             _ => None,
-        //         };
-        //     })
-        //     .map(|digit| digit.to_string())
-        //     .collect();
         let r = format!("{}{}", digs.first().unwrap(), digs.last().unwrap());
         let number = r.parse::<i32>().ok().unwrap();
         result += number;
