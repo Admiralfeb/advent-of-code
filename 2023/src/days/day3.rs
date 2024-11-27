@@ -26,9 +26,6 @@ struct Symbol {
     location: usize,
 }
 
-#[derive(Debug)]
-struct Gear {}
-
 /** Get Part numbers and sum
 
  Part numbers will be directly adjacent to symbols, `.` not included.
