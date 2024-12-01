@@ -75,6 +75,9 @@ impl Day1 {
         };
         Ok(lists)
     }
+    pub fn run(&self) {
+        self.print_puzzles(1, "data/day1.txt", "data/day1.txt");
+    }
 }
 
 #[cfg(test)]

@@ -1,12 +1,12 @@
-use std::{
-    error::Error,
-    fmt::{Debug, Display},
-    fs, io,
-};
+use std::{error::Error, fmt::Debug, fs, io};
 
 pub trait AdventDay {
-    fn puzzle1(&self, path: &str) -> Result<impl Debug, Box<dyn Error>>;
+    fn puzzle1(&self, path: &str) -> Result<impl Debug, Box<dyn Error>> {
+        let _ = path;
+        Ok("test incomplete")
+    }
     fn puzzle2(&self, path: &str) -> Result<impl Debug, Box<dyn Error>> {
+        let _ = path;
         Ok("test incomplete")
     }
     fn print_puzzles(&self, day: i32, path1: &str, path2: &str) -> () {
