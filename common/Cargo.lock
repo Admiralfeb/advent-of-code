@@ -3,12 +3,5 @@
 version = 3
 
 [[package]]
-name = "admiralfeb-advent-of-code-2024"
-version = "0.1.0"
-dependencies = [
- "common",
-]
-
-[[package]]
 name = "common"
 version = "0.1.0"
