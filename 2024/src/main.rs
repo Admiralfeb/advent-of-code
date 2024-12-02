@@ -3,7 +3,7 @@ mod days;
 use days::*;
 
 fn main() {
-    let day = day1::Day1;
+    let day = day2::Day2;
 
     day.run();
 }

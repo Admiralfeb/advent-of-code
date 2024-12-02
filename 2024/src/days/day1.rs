@@ -1,10 +1,10 @@
-use common::day::AdventDay;
-use std::error::Error;
+use common::{day::AdventDay, file::read_file};
+use std::{error::Error, fmt};
 
 pub struct Day1;
 impl AdventDay for Day1 {
-    fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
-        let string = self.read_file(path).unwrap();
+    fn puzzle1(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+        let string = read_file(path).unwrap();
 
         let mut lists = self.make_lists(string)?;
 
@@ -25,8 +25,8 @@ impl AdventDay for Day1 {
         Ok(main_delta)
     }
 
-    fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
-        let string = self.read_file(path).unwrap();
+    fn puzzle2(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+        let string = read_file(path).unwrap();
 
         let lists = self.make_lists(string)?;
 
@@ -44,10 +44,6 @@ impl AdventDay for Day1 {
         }
 
         Ok(similarities)
-    }
-
-    fn read_file(&self, path: &str) -> std::io::Result<String> {
-        std::fs::read_to_string(path)
     }
 }
 
