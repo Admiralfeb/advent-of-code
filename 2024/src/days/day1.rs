@@ -45,6 +45,9 @@ impl AdventDay for Day1 {
 
         Ok(similarities)
     }
+    fn run(&self) {
+        self.print_puzzles(1, "data/day1.txt", "data/day1.txt");
+    }
 }
 
 struct Lists {
@@ -70,9 +73,6 @@ impl Day1 {
             right_list,
         };
         Ok(lists)
-    }
-    pub fn run(&self) {
-        self.print_puzzles(1, "data/day1.txt", "data/day1.txt");
     }
 }
 

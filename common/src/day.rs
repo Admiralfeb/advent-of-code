@@ -17,4 +17,5 @@ pub trait AdventDay {
             self.puzzle2(path2).unwrap()
         )
     }
+    fn run(&self);
 }

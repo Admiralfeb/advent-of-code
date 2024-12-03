@@ -75,11 +75,9 @@ impl AdventDay for Day2 {
 
         Ok(safe_reports)
     }
-}
 
-impl Day2 {
-    pub fn run(&self) {
-        self.print_puzzles(1, "data/day2.txt", "data/day2.txt");
+    fn run(&self) {
+        self.print_puzzles(2, "data/day2.txt", "data/day2.txt");
     }
 }
 
