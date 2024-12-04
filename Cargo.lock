@@ -15,6 +15,7 @@ dependencies = [
 name = "advent_2023"
 version = "0.1.0"
 dependencies = [
+ "common",
  "regex",
 ]
 
