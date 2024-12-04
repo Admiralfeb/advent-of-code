@@ -3,6 +3,8 @@ use std::error::Error;
 use common::{day::AdventDay, file::read_file};
 use regex::Regex;
 
+use crate::common_values::get_data_path;
+
 pub struct Day3;
 impl AdventDay for Day3 {
     fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
@@ -29,8 +31,11 @@ impl AdventDay for Day3 {
 
         Ok(result)
     }
+
     fn run(&self) {
-        self.print_puzzles(3, "data/day3.txt", "data/day3.txt");
+        let data_path = get_data_path().to_string();
+        let day1_path = data_path + "day3.txt";
+        self.print_puzzles(3, day1_path.as_str(), day1_path.as_str());
     }
 }
 
@@ -40,7 +45,7 @@ fn find_commands(string_fragment: &str) -> Vec<Instruction> {
 
     let mut instructions: Vec<Instruction> = Vec::new();
     for m in matches {
-        println!("match: {}", m);
+        // println!("match: {}", m);
         let number_string = m.get(3..).unwrap().replace("(", "").replace(")", "");
         let mut numbers = number_string.split(',');
 
@@ -63,7 +68,7 @@ fn find_commands2(string_fragment: &str) -> Vec<Instruction> {
     let mut instructions: Vec<Instruction> = Vec::new();
     let mut enable_instructions = true;
     for m in matches {
-        println!("match: {}", m);
+        // println!("match: {}", m);
         if m == "do()" {
             enable_instructions = true;
             continue;

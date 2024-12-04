@@ -1,6 +1,8 @@
 use common::{day::AdventDay, file::read_file};
 use std::{error::Error, fmt};
 
+use crate::common_values::get_data_path;
+
 pub struct Day1;
 impl AdventDay for Day1 {
     fn puzzle1(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
@@ -46,7 +48,9 @@ impl AdventDay for Day1 {
         Ok(similarities)
     }
     fn run(&self) {
-        self.print_puzzles(1, "data/day1.txt", "data/day1.txt");
+        let data_path = get_data_path().to_string();
+        let day1_path = data_path + "day1.txt";
+        self.print_puzzles(1, day1_path.as_str(), day1_path.as_str());
     }
 }
 

@@ -1,0 +1,15 @@
+[package]
+name = "advent-of-code"
+version = "0.1.0"
+edition = "2021"
+
+[workspace]
+members = ["2023", "2024", "common"]
+
+[workspace.dependencies]
+regex = "1.11.1"
+
+[dependencies]
+advent_2024 = { path = "2024" }
+advent_2023 = { path = "2023" }
+common = { path = "./common" }
