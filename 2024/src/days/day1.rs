@@ -47,10 +47,10 @@ impl AdventDay for Day1 {
 
         Ok(similarities)
     }
-    fn run(&self) {
+    fn run(&self) -> String {
         let data_path = get_data_path().to_string();
         let day1_path = data_path + "day1.txt";
-        self.print_puzzles(1, day1_path.as_str(), day1_path.as_str());
+        self.print_puzzles(1, day1_path.as_str(), day1_path.as_str())
     }
 }
 

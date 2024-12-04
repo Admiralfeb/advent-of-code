@@ -10,7 +10,7 @@ pub mod day1;
 pub mod day2;
 pub mod day3;
 
-fn run_day(input: i32) -> Result<(), Box<dyn Error>> {
+fn run_day(input: i32) -> Result<String, Box<dyn Error>> {
     match input {
         1 => Ok(day1::Day1.run()),
         2 => Ok(day2::Day2.run()),
@@ -19,7 +19,7 @@ fn run_day(input: i32) -> Result<(), Box<dyn Error>> {
     }
 }
 
-pub fn select_day(input: Option<i32>) -> Result<(), Box<dyn Error>> {
+pub fn select_day(input: Option<i32>) -> Result<String, Box<dyn Error>> {
     if let Some(input_day) = input {
         return run_day(input_day);
     }
