@@ -9,9 +9,9 @@ mod common_values;
 pub mod days;
 use days::*;
 
-pub struct Year2024;
+pub struct Year2023;
 
-impl AdventYear for Year2024 {
+impl AdventYear for Year2023 {
     fn run(&self, input_day: Option<i32>) -> Result<(), Box<dyn error::Error>> {
         let result = self.select_day(input_day)?;
 
@@ -19,7 +19,7 @@ impl AdventYear for Year2024 {
         Ok(())
     }
     fn get_days(&self) -> Vec<i32> {
-        vec![1, 2, 3]
+        vec![]
     }
     fn run_day(&self, input: i32) -> Result<String, Box<dyn error::Error>> {
         match input {
