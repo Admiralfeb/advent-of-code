@@ -4,7 +4,19 @@ version = "0.1.0"
 edition = "2021"
 
 [workspace]
-members = ["2023", "2024", "common"]
+members = [
+    "2015",
+    "2016",
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024",
+    "common",
+]
 
 [workspace.dependencies]
 regex = "1.11.1"
@@ -13,4 +25,12 @@ common = { path = "./common" }
 [dependencies]
 advent_2024 = { path = "2024" }
 advent_2023 = { path = "2023" }
+advent_2022 = { path = "2022" }
+advent_2021 = { path = "2021" }
+advent_2020 = { path = "2020" }
+advent_2019 = { path = "2019" }
+advent_2018 = { path = "2018" }
+advent_2017 = { path = "2017" }
+advent_2016 = { path = "2016" }
+advent_2015 = { path = "2015" }
 common.workspace = true

@@ -32,7 +32,6 @@ impl AdventDay for Day4 {
     }
     fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
         let binding = read_file(path)?;
-        let mut number_found: i64 = 0;
 
         let lines = binding.lines();
 

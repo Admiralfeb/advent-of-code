@@ -6,8 +6,72 @@ version = 3
 name = "advent-of-code"
 version = "0.1.0"
 dependencies = [
+ "advent_2015",
+ "advent_2016",
+ "advent_2017",
+ "advent_2018",
+ "advent_2019",
+ "advent_2020",
+ "advent_2021",
+ "advent_2022",
  "advent_2023",
  "advent_2024",
+ "common",
+]
+
+[[package]]
+name = "advent_2015"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2016"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2017"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2018"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2019"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2020"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2021"
+version = "0.1.0"
+dependencies = [
+ "common",
+]
+
+[[package]]
+name = "advent_2022"
+version = "0.1.0"
+dependencies = [
  "common",
 ]
 
