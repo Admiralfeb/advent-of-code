@@ -2,10 +2,7 @@
 
 use std::error;
 
-use common::{
-    day::AdventDay,
-    year::{AdventYear, DayNotFoundError},
-};
+use common::year::{AdventYear, DayNotFoundError};
 
 // mod common_values;
 // pub mod days;
