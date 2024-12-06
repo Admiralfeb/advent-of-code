@@ -71,7 +71,7 @@ impl AdventDay for Day1 {
 */
 
 #[cfg(test)]
-mod tests {
+mod test {
 
     use super::*;
 
@@ -88,8 +88,8 @@ mod tests {
     fn test_puzzle2() {
         let path = "data/day1-test-input2.txt";
         let day = Day1;
-        let result = day.puzzle1(path).unwrap();
-        let expected: i32 = 142;
+        let result = day.puzzle2(path).unwrap();
+        let expected: i32 = 281;
         assert_eq!(expected.to_string(), format!("{:?}", result));
     }
 }

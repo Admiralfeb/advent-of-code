@@ -1,4 +1,49 @@
-use std::{error::Error, fs, path::Path};
+use std::{error::Error, fs};
+
+use common::day::AdventDay;
+
+use crate::common_values::get_data_path;
+
+pub struct Day2;
+impl AdventDay for Day2 {
+    fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+        let given: GameRun = GameRun {
+            red: 12,
+            green: 13,
+            blue: 14,
+        };
+        let input_value = fs::read_to_string(path)?;
+        let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
+        let possible_games: Vec<i32> = games
+            .iter()
+            .filter(|game| game.possible(&given))
+            .map(|game| game.num)
+            .collect();
+
+        let mut result = 0;
+        for game_num in possible_games {
+            result += game_num;
+        }
+        Ok(result)
+    }
+    fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+        let input_value = fs::read_to_string(path)?;
+        let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
+
+        let mut result = 0;
+        for game in &games {
+            let power = game.power();
+            result += power;
+        }
+
+        Ok(result)
+    }
+    fn run(&self) -> String {
+        let data_path = get_data_path();
+        let day1_path = data_path + "day2-input.txt";
+        self.print_puzzles(2, day1_path.as_str(), day1_path.as_str())
+    }
+}
 
 struct Game {
     num: i32,
@@ -93,64 +138,25 @@ impl Game {
     }
 }
 
-pub fn print_puzzles() {
-    let path = Path::new("data/day2-input.txt");
-    println!(
-        "day 2 results: {}, {}",
-        puzzle1(path).unwrap(),
-        puzzle2(path).unwrap()
-    )
-}
-
-pub fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
-    let given: GameRun = GameRun {
-        red: 12,
-        green: 13,
-        blue: 14,
-    };
-    let input_value = fs::read_to_string(path)?;
-    let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
-    let possible_games: Vec<i32> = games
-        .iter()
-        .filter(|game| game.possible(&given))
-        .map(|game| game.num)
-        .collect();
-
-    let mut result = 0;
-    for game_num in possible_games {
-        result += game_num;
-    }
-    Ok(result)
-}
-
-pub fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
-    let input_value = fs::read_to_string(path)?;
-    let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
-
-    let mut result = 0;
-    for game in &games {
-        let power = game.power();
-        result += power;
-    }
-
-    Ok(result)
-}
-
 #[cfg(test)]
 mod test {
     use super::*;
 
     #[test]
     fn test_puzzle1() {
-        let result = puzzle1(Path::new("data/day2-test-input.txt"));
-
-        assert_eq!(8, result.unwrap())
+        let path = "data/day2-test-input.txt";
+        let day = Day2;
+        let result = day.puzzle1(path).unwrap();
+        let expected: i32 = 8;
+        assert_eq!(expected.to_string(), format!("{:?}", result));
     }
 
     #[test]
     fn test_puzzle2() {
-        let result = puzzle2(Path::new("data/day2-test-input.txt"));
-
-        assert_eq!(2286, result.unwrap())
+        let path = "data/day2-test-input.txt";
+        let day = Day2;
+        let result = day.puzzle2(path).unwrap();
+        let expected: i32 = 2286;
+        assert_eq!(expected.to_string(), format!("{:?}", result));
     }
 }
