@@ -21,7 +21,7 @@ impl AdventYear for Year2024 {
         Ok(())
     }
     fn get_days(&self) -> Vec<i32> {
-        vec![1, 2, 3, 4, 5]
+        vec![1, 2, 3, 4, 5, 6]
     }
     fn run_day(&self, input: i32) -> Result<String, Box<dyn error::Error>> {
         match input {
@@ -30,6 +30,7 @@ impl AdventYear for Year2024 {
             3 => Ok(day3::Day3.run()),
             4 => Ok(day4::Day4.run()),
             5 => Ok(day5::Day5.run()),
+            5 => Ok(day6::Day6.run()),
             _ => Err(Box::new(DayNotFoundError)),
         }
     }
