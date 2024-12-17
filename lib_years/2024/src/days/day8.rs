@@ -20,7 +20,7 @@ impl AdventDay for Day8 {
     }
 }
 
-#[cfg(test)]
+// #[cfg(test)]
 mod test {
 
     use super::*;

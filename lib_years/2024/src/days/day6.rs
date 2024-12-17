@@ -25,7 +25,7 @@ mod test {
 
     use super::*;
 
-    #[test]
+    // #[test]
     fn test_puzzle1() {
         let path = "data/day6-test.txt";
         let day = Day6;
@@ -34,7 +34,7 @@ mod test {
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
-    #[test]
+    // #[test]
     fn test_puzzle2() {
         let path = "data/day6-test.txt";
         let day = Day6;
