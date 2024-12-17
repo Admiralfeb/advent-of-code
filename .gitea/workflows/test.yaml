@@ -1,6 +1,6 @@
 name: Advent Test
 run-name: ${{ gitea.actor }} advent test
-on: [push]
+on: [push, workflow_dispatch]
 
 jobs:
   test:
