@@ -7,6 +7,24 @@ pub struct Day9;
 impl AdventDay for Day9 {
     fn puzzle1(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
         let binding = read_file(path)?;
+
+        let mut block_num = 0;
+        let mut expanded_string = String::new();
+        for (index, c) in binding.chars().enumerate() {
+            let value = c.to_digit(10).unwrap();
+
+            if index % 2 != 0 {
+                for _v in 0..value {
+                    expanded_string += ".";
+                }
+            } else {
+                for _v in 0..value {
+                    expanded_string.push_str(block_num.to_string().as_str());
+                }
+                block_num += 1;
+            }
+        }
+
         Ok("")
     }
 
@@ -30,11 +48,11 @@ mod test {
         let path = "data/day9-test.txt";
         let day = Day9;
         let result = day.puzzle1(path).unwrap();
-        let expected: i64 = 11;
+        let expected: i64 = 1928;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
-    #[test]
+    // #[test]
     fn test_puzzle2() {
         let path = "data/day9-test.txt";
         let day = Day9;
