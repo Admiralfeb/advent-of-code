@@ -1,12 +1,12 @@
-use std::{error::Error, fs};
+use std::{error::Error, fs, path::Path};
 
-use common::day::AdventDay;
+use common::{day::AdventDay, file::get_data_path};
 
-use crate::common_values::get_data_path;
+use crate::common_values::YEAR;
 
-pub struct Day2;
-impl AdventDay for Day2 {
-    fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+pub struct Day;
+impl AdventDay for Day {
+    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
         let given: GameRun = GameRun {
             red: 12,
             green: 13,
@@ -26,7 +26,7 @@ impl AdventDay for Day2 {
         }
         Ok(result)
     }
-    fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
         let input_value = fs::read_to_string(path)?;
         let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
 
@@ -39,9 +39,8 @@ impl AdventDay for Day2 {
         Ok(result)
     }
     fn run(&self) -> String {
-        let data_path = get_data_path();
-        let day1_path = data_path + "day2-input.txt";
-        self.print_puzzles(2, day1_path.as_str(), day1_path.as_str())
+        let data_path = get_data_path(YEAR, "day2-input.txt");
+        self.print_puzzles(2, &data_path, &data_path)
     }
 }
 
@@ -144,18 +143,18 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let path = "data/day2-test-input.txt";
-        let day = Day2;
-        let result = day.puzzle1(path).unwrap();
+        let path = get_data_path(YEAR, "day2-test-input.txt");
+        let day = Day;
+        let result = day.puzzle1(&path).unwrap();
         let expected: i32 = 8;
         assert_eq!(expected.to_string(), format!("{:?}", result));
     }
 
     #[test]
     fn test_puzzle2() {
-        let path = "data/day2-test-input.txt";
-        let day = Day2;
-        let result = day.puzzle2(path).unwrap();
+        let path = get_data_path(YEAR, "day2-test-input.txt");
+        let day = Day;
+        let result = day.puzzle2(&path).unwrap();
         let expected: i32 = 2286;
         assert_eq!(expected.to_string(), format!("{:?}", result));
     }

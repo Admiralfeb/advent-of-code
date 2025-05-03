@@ -1,11 +1,14 @@
-use common::{day::AdventDay, file::read_file};
-use std::{error::Error, fmt};
+use common::{
+    day::AdventDay,
+    file::{get_data_path, read_file},
+};
+use std::{error::Error, fmt, path::Path};
 
-use crate::common_values::get_data_path;
+use crate::common_values::YEAR;
 
-pub struct Day5;
-impl AdventDay for Day5 {
-    fn puzzle1(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+pub struct Day;
+impl AdventDay for Day {
+    fn puzzle1(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
         let (page_rules, page_updates) = process_data(path)?;
 
         let mut total: i64 = 0;
@@ -40,7 +43,7 @@ impl AdventDay for Day5 {
         Ok(total)
     }
 
-    fn puzzle2(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
         let (page_rules, page_updates) = process_data(path)?;
 
         let mut total: i64 = 0;
@@ -73,13 +76,12 @@ impl AdventDay for Day5 {
         Ok(total)
     }
     fn run(&self) -> String {
-        let data_path = get_data_path().to_string();
-        let day1_path = data_path + "day5.txt";
-        self.print_puzzles(5, day1_path.as_str(), day1_path.as_str())
+        let data_path = get_data_path(YEAR, "day5.txt");
+        self.print_puzzles(5, &data_path, &data_path)
     }
 }
 
-fn process_data(path: &str) -> Result<(Vec<PageRule>, Vec<Vec<i32>>), Box<dyn Error>> {
+fn process_data(path: &Path) -> Result<(Vec<PageRule>, Vec<Vec<i32>>), Box<dyn Error>> {
     let data = read_file(path)?;
     let mut data_split = data.split("\n\n");
     let page_rules = data_split
@@ -122,20 +124,22 @@ mod test {
 
     use super::*;
 
+    const TEST_DATA_PATH: &str = "day5-test.txt";
+
     #[test]
     fn test_puzzle1() {
-        let path = "data/day5-test.txt";
-        let day = Day5;
-        let result = day.puzzle1(path).unwrap();
+        let path = get_data_path(YEAR, TEST_DATA_PATH);
+        let day = Day;
+        let result = day.puzzle1(&path).unwrap();
         let expected: i64 = 143;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
     #[test]
     fn test_puzzle2() {
-        let path = "data/day5-test.txt";
-        let day = Day5;
-        let result = day.puzzle2(path).unwrap();
+        let path = get_data_path(YEAR, TEST_DATA_PATH);
+        let day = Day;
+        let result = day.puzzle2(&path).unwrap();
         let expected: i64 = 123;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }

@@ -23,8 +23,8 @@ impl AdventYear for Year2023 {
     }
     fn run_day(&self, input: i32) -> Result<String, Box<dyn error::Error>> {
         match input {
-            1 => Ok(day1::Day1.run()),
-            2 => Ok(day2::Day2.run()),
+            1 => Ok(day1::Day.run()),
+            2 => Ok(day2::Day.run()),
             // 3 => Ok(day3::Day3.run()),
             _ => Err(Box::new(DayNotFoundError)),
         }

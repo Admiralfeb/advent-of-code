@@ -1,42 +1,37 @@
-use common::{day::AdventDay, file::read_file};
+use std::path::Path;
 
-use crate::common_values::get_data_path;
+use common::{
+    day::AdventDay,
+    file::{get_data_path, read_file},
+};
 
-pub struct Day1;
-impl AdventDay for Day1 {
+use crate::common_values::YEAR;
+
+pub struct Day;
+impl AdventDay for Day {
     fn run(&self) -> String {
-        let data_path = get_data_path().to_string();
-        let day1_path = data_path + "day1.txt";
-        self.print_puzzles(1, day1_path.as_str(), day1_path.as_str())
+        let data_path = get_data_path(YEAR, "day1.txt");
+        self.print_puzzles(1, data_path.as_path(), data_path.as_path())
     }
 
-    fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
         let string = read_file(path).unwrap();
 
-        let result = Day1::eval_elevator(&string, None);
+        let result = Day::eval_elevator(&string, None);
 
         Ok(result)
     }
 
-    fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
         let string = read_file(path).unwrap();
 
-        let result = Day1::find_basement_position(&string, None);
+        let result = Day::find_basement_position(&string, None);
 
         Ok(result)
-    }
-
-    fn print_puzzles(&self, day: i32, path1: &str, path2: &str) -> String {
-        std::format!(
-            "\n\tday {} results: \n\t\tPuzzle1: {:?}\n\t\tPuzzle2: {:?}",
-            day,
-            self.puzzle1(path1).unwrap(),
-            self.puzzle2(path2).unwrap()
-        )
     }
 }
 
-impl Day1 {
+impl Day {
     fn eval_elevator(input: &str, starting_floor: Option<i64>) -> i64 {
         let mut floor = starting_floor.unwrap_or(0);
         let mut increases = 0;
@@ -95,7 +90,7 @@ mod test {
     #[test_case(")))" => -3 ; "neg3 1")]
     #[test_case(")())())" => -3 ; "neg3 2")]
     fn eval_elevator_should_calc_right(input: &str) -> i64 {
-        let result = Day1::eval_elevator(input, None);
+        let result = Day::eval_elevator(input, None);
 
         result
     }
@@ -104,7 +99,7 @@ mod test {
     #[test_case("()())" => Some(5))]
     #[test_case("(((" => None)]
     fn when_basement_resolves(input: &str) -> Option<i64> {
-        let result = Day1::find_basement_position(input, None);
+        let result = Day::find_basement_position(input, None);
 
         result
     }

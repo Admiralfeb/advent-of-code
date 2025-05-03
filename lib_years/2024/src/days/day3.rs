@@ -1,13 +1,16 @@
-use std::error::Error;
+use std::{error::Error, path::Path};
 
-use common::{day::AdventDay, file::read_file};
+use common::{
+    day::AdventDay,
+    file::{get_data_path, read_file},
+};
 use regex::Regex;
 
-use crate::common_values::get_data_path;
+use crate::common_values::YEAR;
 
-pub struct Day3;
-impl AdventDay for Day3 {
-    fn puzzle1(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+pub struct Day;
+impl AdventDay for Day {
+    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
         let binding = read_file(path)?;
         let memory_fragment = binding.as_str();
         let instructions = find_commands(memory_fragment);
@@ -19,7 +22,7 @@ impl AdventDay for Day3 {
 
         Ok(result)
     }
-    fn puzzle2(&self, path: &str) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
         let binding = read_file(path)?;
         let memory_fragment = binding.as_str();
         let instructions = find_commands2(memory_fragment);
@@ -33,9 +36,8 @@ impl AdventDay for Day3 {
     }
 
     fn run(&self) -> String {
-        let data_path = get_data_path().to_string();
-        let day1_path = data_path + "day3.txt";
-        self.print_puzzles(3, day1_path.as_str(), day1_path.as_str())
+        let data_path = get_data_path(YEAR, "day3.txt");
+        self.print_puzzles(3, &data_path, &data_path)
     }
 }
 
@@ -110,18 +112,18 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let path = "data/day3-test.txt";
-        let day = Day3;
-        let result = day.puzzle1(path).unwrap();
+        let path = get_data_path(YEAR, "day3-test.txt");
+        let day = Day;
+        let result = day.puzzle1(&path).unwrap();
         let expected: i64 = 161;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
     #[test]
     fn test_puzzle2() {
-        let path = "data/day3-test2.txt";
-        let day = Day3;
-        let result = day.puzzle2(path).unwrap();
+        let path = get_data_path(YEAR, "day3-test2.txt");
+        let day = Day;
+        let result = day.puzzle2(&path).unwrap();
         let expected: i64 = 48;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }

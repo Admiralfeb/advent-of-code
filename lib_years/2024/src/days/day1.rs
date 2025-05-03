@@ -1,11 +1,14 @@
-use common::{day::AdventDay, file::read_file};
-use std::{error::Error, fmt};
+use common::{
+    day::AdventDay,
+    file::{get_data_path, read_file},
+};
+use std::{error::Error, fmt, path::Path};
 
-use crate::common_values::get_data_path;
+use crate::common_values::YEAR;
 
-pub struct Day1;
-impl AdventDay for Day1 {
-    fn puzzle1(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+pub struct Day;
+impl AdventDay for Day {
+    fn puzzle1(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
         let string = read_file(path).unwrap();
 
         let mut lists = self.make_lists(string)?;
@@ -27,7 +30,7 @@ impl AdventDay for Day1 {
         Ok(main_delta)
     }
 
-    fn puzzle2(&self, path: &str) -> Result<impl fmt::Debug, Box<dyn Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
         let string = read_file(path).unwrap();
 
         let lists = self.make_lists(string)?;
@@ -48,9 +51,9 @@ impl AdventDay for Day1 {
         Ok(similarities)
     }
     fn run(&self) -> String {
-        let data_path = get_data_path().to_string();
-        let day1_path = data_path + "day1.txt";
-        self.print_puzzles(1, day1_path.as_str(), day1_path.as_str())
+        let path = get_data_path(YEAR, "day1.txt");
+
+        self.print_puzzles(1, &path, &path)
     }
 }
 
@@ -59,7 +62,7 @@ struct Lists {
     right_list: Vec<i64>,
 }
 
-impl Day1 {
+impl Day {
     fn make_lists(&self, string: String) -> Result<Lists, Box<dyn Error>> {
         let lines = string.lines();
         let mut left_list: Vec<i64> = Vec::new();
@@ -87,18 +90,20 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let path = "data/day1-test.txt";
-        let day = Day1;
-        let result = day.puzzle1(path).unwrap();
+        let path = get_data_path(YEAR, "day1-test.txt");
+
+        let day = Day;
+        let result = day.puzzle1(&path).unwrap();
         let expected: i64 = 11;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
     #[test]
     fn test_puzzle2() {
-        let path = "data/day1-test.txt";
-        let day = Day1;
-        let result = day.puzzle2(path).unwrap();
+        let path = get_data_path(YEAR, "day1-test.txt");
+
+        let day = Day;
+        let result = day.puzzle2(&path).unwrap();
         let expected: i64 = 31;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }

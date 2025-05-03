@@ -1,11 +1,14 @@
-use common::{day::AdventDay, file::read_file};
-use std::{error::Error, fmt::Debug};
+use common::{
+    day::AdventDay,
+    file::{get_data_path, read_file},
+};
+use std::{error::Error, fmt::Debug, path::Path};
 
-use crate::common_values::get_data_path;
+use crate::common_values::YEAR;
 
-pub struct Day2;
-impl AdventDay for Day2 {
-    fn puzzle1(&self, path: &str) -> Result<impl Debug, Box<dyn Error>> {
+pub struct Day;
+impl AdventDay for Day {
+    fn puzzle1(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
         let string = read_file(path).unwrap();
         let reports = string.lines();
 
@@ -27,7 +30,7 @@ impl AdventDay for Day2 {
 
         Ok(safe_reports)
     }
-    fn puzzle2(&self, path: &str) -> Result<impl Debug, Box<dyn Error>> {
+    fn puzzle2(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
         let string = read_file(path).unwrap();
         let reports = string.lines();
 
@@ -79,9 +82,8 @@ impl AdventDay for Day2 {
     }
 
     fn run(&self) -> String {
-        let data_path = get_data_path().to_string();
-        let day1_path = data_path + "day2.txt";
-        self.print_puzzles(2, day1_path.as_str(), day1_path.as_str())
+        let data_path = get_data_path(YEAR, "day2.txt");
+        self.print_puzzles(2, &data_path, &data_path)
     }
 }
 
@@ -161,18 +163,19 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let path = "data/day2-test.txt";
-        let day = Day2;
-        let result = day.puzzle1(path).unwrap();
+        let path = get_data_path(YEAR, "day2-test.txt");
+
+        let day = Day;
+        let result = day.puzzle1(&path).unwrap();
         let expected: i64 = 2;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
 
     #[test]
     fn test_puzzle2() {
-        let path = "data/day2-test.txt";
-        let day = Day2;
-        let result = day.puzzle2(path).unwrap();
+        let path = get_data_path(YEAR, "day2-test.txt");
+        let day = Day;
+        let result = day.puzzle2(&path).unwrap();
         let expected: i64 = 4;
         assert_eq!(expected.to_string(), format!("{:?}", result))
     }
