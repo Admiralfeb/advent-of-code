@@ -1,4 +1,4 @@
-use std::{error::Error, path::Path};
+use std::path::Path;
 
 use common::{
     day::AdventDay,

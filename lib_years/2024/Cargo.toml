@@ -5,5 +5,5 @@ edition = "2021"
 
 [dependencies]
 common.workspace = true
-grid = "0.15.0"
+grid.workspace = true
 regex.workspace = true
