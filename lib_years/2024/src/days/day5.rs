@@ -1,25 +1,24 @@
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
-use std::{error::Error, fmt, path::Path};
+use std::{error::Error, path::Path};
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
+
+impl_day!(5, YEAR, "day5.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let (page_rules, page_updates) = process_data(path)?;
 
         let mut total: i64 = 0;
         for update in page_updates {
-            // check if both pages are present
             let mut bad_update: bool = false;
             for rule in &page_rules {
                 if !update.contains(&rule.first_page) || !update.contains(&rule.second_page) {
                     continue;
                 }
-                // if they are, confirm that they are in the right order
                 let first_index = update.iter().position(|u| u == &rule.first_page).unwrap();
                 let second_index = update.iter().position(|u| u == &rule.second_page).unwrap();
                 if first_index > second_index {
@@ -27,12 +26,9 @@ impl AdventDay for Day {
                     break;
                 }
             }
-            // if they're in the right order, then grab and sum the middle number
             if !bad_update {
                 continue;
             }
-
-            // reorg
 
             let middle_index = (update.len() as f32) / 2.0;
             let middle_number = update[middle_index as usize];
@@ -41,20 +37,17 @@ impl AdventDay for Day {
         }
 
         Ok(total)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let (page_rules, page_updates) = process_data(path)?;
 
         let mut total: i64 = 0;
         for update in page_updates {
-            // check if both pages are present
             let mut bad_update: bool = false;
             for rule in &page_rules {
                 if !update.contains(&rule.first_page) || !update.contains(&rule.second_page) {
                     continue;
                 }
-                // if they are, confirm that they are in the right order
                 let first_index = update.iter().position(|u| u == &rule.first_page).unwrap();
                 let second_index = update.iter().position(|u| u == &rule.second_page).unwrap();
                 if first_index > second_index {
@@ -62,7 +55,6 @@ impl AdventDay for Day {
                     break;
                 }
             }
-            // if they're in the right order, then grab and sum the middle number
             if bad_update {
                 continue;
             }
@@ -74,12 +66,8 @@ impl AdventDay for Day {
         }
 
         Ok(total)
-    }
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day5.txt");
-        self.print_puzzles(5, &data_path, &data_path)
-    }
-}
+    },
+});
 
 fn process_data(path: &Path) -> Result<(Vec<PageRule>, Vec<Vec<i32>>), Box<dyn Error>> {
     let data = read_file(path)?;
@@ -123,6 +111,10 @@ struct PageRule {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     const TEST_DATA_PATH: &str = "day5-test.txt";
 

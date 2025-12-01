@@ -1,22 +1,20 @@
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
-use std::{error::Error, fmt::Debug, path::Path};
+use std::{fmt::Debug, path::Path};
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
+
+impl_day!(2, YEAR, "day2.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         let reports = string.lines();
 
         let mut safe_reports = 0;
         for report in reports {
-            // check if all increase or decrease
-            // check if increase/decrease is from 1-3
-
             let report_levels: Vec<i64> = report
                 .split_ascii_whitespace()
                 .map(|x| x.parse::<i64>().unwrap())
@@ -29,16 +27,13 @@ impl AdventDay for Day {
         }
 
         Ok(safe_reports)
-    }
-    fn puzzle2(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         let reports = string.lines();
 
         let mut safe_reports = 0;
         for report in reports {
-            // check if all increase or decrease
-            // check if increase/decrease is from 1-3
-
             let report_levels: Vec<i64> = report
                 .split_ascii_whitespace()
                 .map(|x| x.parse::<i64>().unwrap())
@@ -79,13 +74,8 @@ impl AdventDay for Day {
         }
 
         Ok(safe_reports)
-    }
-
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day2.txt");
-        self.print_puzzles(2, &data_path, &data_path)
-    }
-}
+    },
+});
 
 fn eval_safety(levels: &Vec<i64>) -> Vec<ReactorResult> {
     let mut results: Vec<ReactorResult> = Vec::new();
@@ -160,6 +150,10 @@ struct ReactorResult {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     #[test]
     fn test_puzzle1() {

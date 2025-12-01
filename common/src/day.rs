@@ -19,3 +19,40 @@ pub trait AdventDay {
     }
     fn run(&self) -> String;
 }
+
+#[macro_export]
+macro_rules! impl_day {
+    ($day_num:expr, $year:expr, $file:expr) => {
+        impl $crate::day::AdventDay for Day {
+            fn run(&self) -> String {
+                let data_path = $crate::file::get_data_path($year, $file);
+                self.print_puzzles($day_num, data_path.as_path(), data_path.as_path())
+            }
+        }
+    };
+    ($day_num:expr, $year:expr, $file:expr, {
+        puzzle1: $puzzle1_body:expr,
+        puzzle2: $puzzle2_body:expr $(,)?
+    }) => {
+        impl $crate::day::AdventDay for Day {
+            fn puzzle1(
+                &self,
+                path: &std::path::Path,
+            ) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+                $puzzle1_body(self, path)
+            }
+
+            fn puzzle2(
+                &self,
+                path: &std::path::Path,
+            ) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+                $puzzle2_body(self, path)
+            }
+
+            fn run(&self) -> String {
+                let data_path = $crate::file::get_data_path($year, $file);
+                self.print_puzzles($day_num, data_path.as_path(), data_path.as_path())
+            }
+        }
+    };
+}

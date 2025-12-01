@@ -1,14 +1,13 @@
-pub fn add(left: u64, right: u64) -> u64 {
-    left + right
-}
+use common::impl_year;
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+mod common_values;
+mod days;
 
-    #[test]
-    fn it_works() {
-        let result = add(2, 2);
-        assert_eq!(result, 4);
-    }
-}
+pub struct Year2025;
+
+impl_year!(Year2025, 2025, {
+    unit: [
+        1 => day1
+    ]
+    default: []
+});

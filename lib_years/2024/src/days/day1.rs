@@ -1,17 +1,17 @@
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
-use std::{error::Error, fmt, path::Path};
+use std::{error::Error, path::Path};
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
-        let string = read_file(path).unwrap();
 
-        let mut lists = self.make_lists(string)?;
+impl_day!(1, YEAR, "day1.txt", {
+    puzzle1: |day: &Day, path: &Path| {
+        let string = read_file(path).unwrap();
+        let mut lists = day.make_lists(string)?;
 
         lists.left_list.sort();
         lists.right_list.sort();
@@ -28,12 +28,10 @@ impl AdventDay for Day {
         }
 
         Ok(main_delta)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl fmt::Debug, Box<dyn Error>> {
+    },
+    puzzle2: |day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
-
-        let lists = self.make_lists(string)?;
+        let lists = day.make_lists(string)?;
 
         let mut similarities: i64 = 0;
 
@@ -49,13 +47,8 @@ impl AdventDay for Day {
         }
 
         Ok(similarities)
-    }
-    fn run(&self) -> String {
-        let path = get_data_path(YEAR, "day1.txt");
-
-        self.print_puzzles(1, &path, &path)
-    }
-}
+    },
+});
 
 struct Lists {
     left_list: Vec<i64>,
@@ -87,6 +80,10 @@ impl Day {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     #[test]
     fn test_puzzle1() {

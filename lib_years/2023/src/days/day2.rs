@@ -1,12 +1,13 @@
-use std::{error::Error, fs, path::Path};
+use std::{fs, path::Path};
 
-use common::{day::AdventDay, file::get_data_path};
+use common::impl_day;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+
+impl_day!(2, YEAR, "day2-input.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let given: GameRun = GameRun {
             red: 12,
             green: 13,
@@ -25,8 +26,8 @@ impl AdventDay for Day {
             result += game_num;
         }
         Ok(result)
-    }
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let input_value = fs::read_to_string(path)?;
         let games: Vec<Game> = input_value.lines().map(Game::parse).collect();
 
@@ -37,12 +38,8 @@ impl AdventDay for Day {
         }
 
         Ok(result)
-    }
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day2-input.txt");
-        self.print_puzzles(2, &data_path, &data_path)
-    }
-}
+    },
+});
 
 struct Game {
     num: i32,
@@ -140,6 +137,10 @@ impl Game {
 #[cfg(test)]
 mod test {
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     #[test]
     fn test_puzzle1() {

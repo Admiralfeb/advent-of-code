@@ -1,31 +1,24 @@
 use std::{error::Error, path::Path};
 
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day2.txt");
-        self.print_puzzles(2, data_path.as_path(), data_path.as_path())
-    }
 
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+impl_day!(2, YEAR, "day2.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
-
         Day::process_data(string, Day::calc_wrapping_paper)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
-
         Day::process_data(string, Day::calc_ribbon)
-    }
-}
+    },
+});
 
 impl Day {
     fn process_data(

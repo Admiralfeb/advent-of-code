@@ -1,35 +1,23 @@
 use std::path::Path;
 
-use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
-};
+use common::{file::read_file, impl_day};
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day1.txt");
-        self.print_puzzles(1, data_path.as_path(), data_path.as_path())
-    }
 
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+impl_day!(1, YEAR, "day1.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
-
         let result = Day::eval_elevator(&string, None);
-
         Ok(result)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
-
         let result = Day::find_basement_position(&string, None);
-
         Ok(result)
-    }
-}
+    },
+});
 
 impl Day {
     fn eval_elevator(input: &str, starting_floor: Option<i64>) -> i64 {

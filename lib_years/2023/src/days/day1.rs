@@ -1,18 +1,17 @@
 use std::{
-    error::Error,
-    fmt::Debug,
     fs::{self},
     path::Path,
 };
 
-use common::{day::AdventDay, file::get_data_path};
+use common::{impl_day};
 use regex::Regex;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
+
+impl_day!(1, YEAR, "day1-input.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let input_value = fs::read_to_string(path)?;
         let mut result: i32 = 0;
         for line in input_value.lines() {
@@ -27,9 +26,8 @@ impl AdventDay for Day {
             result += number;
         }
         Ok(result)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let input_value = fs::read_to_string(path)?;
         let mut result: i32 = 0;
         for line in input_value.lines() {
@@ -59,12 +57,8 @@ impl AdventDay for Day {
             result += number;
         }
         Ok(result)
-    }
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day1-input.txt");
-        self.print_puzzles(1, &data_path, &data_path)
-    }
-}
+    },
+});
 
 /*
 * Iterate through the digits in each line and create a number. Sum the results of all line numbers.
@@ -74,6 +68,10 @@ impl AdventDay for Day {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     #[test]
     fn test_puzzle1() {

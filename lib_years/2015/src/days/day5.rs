@@ -1,36 +1,27 @@
 use std::path::Path;
 
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
 use fancy_regex::Regex;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day5.txt");
-        self.print_puzzles(5, data_path.as_path(), data_path.as_path())
-    }
 
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+impl_day!(5, YEAR, "day5.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let file_string = read_file(path).unwrap();
-
         let nice_strings = Day::process_data(file_string, Day::is_string_nice);
-
         Ok(nice_strings)
-    }
-
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let file_string = read_file(path).unwrap();
-
         let nice_strings = Day::process_data(file_string, Day::is_string_nice_p2);
-
         Ok(nice_strings)
-    }
-}
+    },
+});
 
 impl Day {
     fn process_data(file_string: String, cb: impl Fn(&str) -> bool) -> i32 {

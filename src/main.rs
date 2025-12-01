@@ -10,6 +10,7 @@ use advent_2021::Year2021;
 use advent_2022::Year2022;
 use advent_2023::Year2023;
 use advent_2024::Year2024;
+use advent_2025::Year2025;
 use common::year::{self, AdventYear};
 use std::{env, error::Error, io::stdin};
 
@@ -78,6 +79,7 @@ fn run_year(input_year: i32, input_day: Option<i32>) -> Result<(), Box<dyn std::
         2022 => Year2022.run(input_day),
         2023 => Year2023.run(input_day),
         2024 => Year2024.run(input_day),
+        2025 => Year2025.run(input_day),
         _ => Err(Box::new(std::io::Error::new(
             std::io::ErrorKind::NotFound,
             "Year not found",

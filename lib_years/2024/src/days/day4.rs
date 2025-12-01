@@ -1,17 +1,17 @@
-use std::{collections::HashSet, error::Error, path::Path};
+use std::{collections::HashSet, path::Path};
 
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
 use grid::*;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    // find xmas
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+
+impl_day!(4, YEAR, "day4.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
         let mut number_found: i64 = 0;
 
@@ -32,8 +32,8 @@ impl AdventDay for Day {
             }
         }
         Ok(number_found)
-    }
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
 
         let lines = binding.lines();
@@ -56,7 +56,6 @@ impl AdventDay for Day {
         }
         println!("mas matches: {}", mas_matches.len());
 
-        // filter out distinct A coords
         let mut all_a_coords: Vec<LetterCoordinate> =
             mas_matches.iter().map(|m| m.a.clone()).collect();
         println!("coords: {}", all_a_coords.len());
@@ -64,15 +63,8 @@ impl AdventDay for Day {
         all_a_coords.retain(|e| !deduped.insert(e.clone()));
 
         Ok(all_a_coords.len())
-
-        // Ok(number_found)
-    }
-
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day4.txt");
-        self.print_puzzles(4, &data_path, &data_path)
-    }
-}
+    },
+});
 
 fn check_for_word(row: i64, column: i64, grid: &Grid<char>) -> i64 {
     let mut times_found: i64 = 0;
@@ -452,6 +444,10 @@ enum MasDirection {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     const TEST_DATA_PATH: &str = "day4-test.txt";
 

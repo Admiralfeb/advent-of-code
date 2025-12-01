@@ -1,7 +1,58 @@
 use std::{error, fmt, io};
 
 pub fn get_years() -> Vec<i32> {
-    vec![2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024]
+    vec![
+        2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025,
+    ]
+}
+
+#[macro_export]
+macro_rules! advent_days {
+    (
+        unit: [ $($uday:expr => $umodule:ident),* $(,)? ]
+        default: [ $($dday:expr => $dmodule:ident),* $(,)? ]
+    ) => {
+        fn get_days(&self) -> Vec<i32> {
+            vec![$($uday,)* $($dday),*]
+        }
+
+        fn run_day(&self, input: i32) -> Result<String, Box<dyn std::error::Error>> {
+            use $crate::day::AdventDay;
+            match input {
+                $($uday => {
+                    use days::$umodule::Day;
+                    Ok(Day.run())
+                },)*
+                $($dday => {
+                    use days::$dmodule::Day;
+                    Ok(Day::default().run())
+                },)*
+                _ => Err(Box::new($crate::year::DayNotFoundError)),
+            }
+        }
+    };
+}
+
+#[macro_export]
+macro_rules! impl_year {
+    ($year_struct:ident, $year_num:expr, {
+        unit: [ $($uday:expr => $umodule:ident),* $(,)? ]
+        default: [ $($dday:expr => $dmodule:ident),* $(,)? ]
+    }) => {
+        impl $crate::year::AdventYear for $year_struct {
+            fn run(&self, input_day: Option<i32>) -> Result<(), Box<dyn std::error::Error>> {
+                let result = self.select_day(input_day)?;
+
+                println!("year {} {}", $year_num, result);
+                Ok(())
+            }
+
+            $crate::advent_days! {
+                unit: [ $($uday => $umodule),* ]
+                default: [ $($dday => $dmodule),* ]
+            }
+        }
+    };
 }
 
 pub trait AdventYear {

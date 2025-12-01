@@ -1,16 +1,17 @@
-use std::{error::Error, path::Path};
+use std::path::Path;
 
 use common::{
-    day::AdventDay,
-    file::{get_data_path, read_file},
+    impl_day,
+    file::read_file,
 };
 use regex::Regex;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn puzzle1(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+
+impl_day!(3, YEAR, "day3.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
         let memory_fragment = binding.as_str();
         let instructions = find_commands(memory_fragment);
@@ -21,8 +22,8 @@ impl AdventDay for Day {
         }
 
         Ok(result)
-    }
-    fn puzzle2(&self, path: &Path) -> Result<impl std::fmt::Debug, Box<dyn Error>> {
+    },
+    puzzle2: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
         let memory_fragment = binding.as_str();
         let instructions = find_commands2(memory_fragment);
@@ -33,13 +34,8 @@ impl AdventDay for Day {
         }
 
         Ok(result)
-    }
-
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day3.txt");
-        self.print_puzzles(3, &data_path, &data_path)
-    }
-}
+    },
+});
 
 fn find_commands(string_fragment: &str) -> Vec<Instruction> {
     let re = Regex::new(r"mul\([0-9]+,[0-9]+\)").unwrap();
@@ -109,6 +105,10 @@ enum Operator {
 mod test {
 
     use super::*;
+    use common::{
+        day::AdventDay,
+        file::get_data_path,
+    };
 
     #[test]
     fn test_puzzle1() {

@@ -1,30 +1,23 @@
 use std::path::Path;
 
-use common::{day::AdventDay, file::get_data_path};
+use common::impl_day;
 
 use crate::common_values::YEAR;
 
 pub struct Day;
-impl AdventDay for Day {
-    fn run(&self) -> String {
-        let data_path = get_data_path(YEAR, "day4.txt");
-        self.print_puzzles(4, data_path.as_path(), data_path.as_path())
-    }
 
-    fn puzzle1(&self, _path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+impl_day!(4, YEAR, "day4.txt", {
+    puzzle1: |_day: &Day, _path: &Path| {
         let string = "yzbqklnj";
-
         let result = Day::calc_hash(&string, 5);
         Ok(result)
-    }
-
-    fn puzzle2(&self, _path: &Path) -> Result<impl std::fmt::Debug, Box<dyn std::error::Error>> {
+    },
+    puzzle2: |_day: &Day, _path: &Path| {
         let string = "yzbqklnj";
-
         let result = Day::calc_hash(&string, 6);
         Ok(result)
-    }
-}
+    },
+});
 
 impl Day {
     fn calc_hash(input: &str, num_zeros: usize) -> i64 {
