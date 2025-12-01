@@ -15,13 +15,14 @@ members = [
     "lib_years/2022",
     "lib_years/2023",
     "lib_years/2024",
+    "lib_years/2025",
     "common",
 ]
 
 [workspace.dependencies]
-regex = "1.11.1"
-fancy-regex = "0.14.0"
-grid = "0.16.2"
+regex = "1.12.2"
+fancy-regex = "0.16.2"
+grid = "1.0.0"
 test-case = "3.3.1"
 common = { path = "./common" }
 
