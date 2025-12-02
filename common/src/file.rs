@@ -19,7 +19,22 @@ pub fn get_common_data_path(year: i32) -> String {
 
 pub fn get_data_path(year: i32, file_name: &str) -> PathBuf {
     let current_path = env::current_dir().unwrap();
-    current_path
+
+    // Find workspace root by looking for the root Cargo.toml
+    let mut workspace_root = current_path.clone();
+    while !workspace_root.join("Cargo.toml").exists()
+        || workspace_root.join("lib_years").exists() == false
+    {
+        if let Some(parent) = workspace_root.parent() {
+            workspace_root = parent.to_path_buf();
+        } else {
+            // Fallback to current directory if workspace root not found
+            workspace_root = current_path;
+            break;
+        }
+    }
+
+    workspace_root
         .join("lib_years")
         .join(year.to_string())
         .join("data")
