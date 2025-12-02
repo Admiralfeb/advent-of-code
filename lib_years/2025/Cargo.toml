@@ -7,3 +7,5 @@ edition = "2024"
 common.workspace = true
 grid.workspace = true
 regex.workspace = true
+fancy-regex.workspace = true
+rayon = "1.10"

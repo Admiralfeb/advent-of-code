@@ -1,4 +1,7 @@
-use common::{file::read_file, impl_day};
+use common::{
+    file::{process_file_into_lines, read_file},
+    impl_day,
+};
 use std::path::Path;
 
 use crate::common_values::YEAR;
@@ -9,10 +12,10 @@ impl_day!(1, YEAR, "day1.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         println!("data file path: {:?}", path);
 
-        let string = read_file(path).unwrap();
-        let lines = string.lines();
+        let lines = process_file_into_lines(path).unwrap();
 
         let commands = lines
+            .iter()
             .filter(|line| !line.is_empty())
             .map(|line| {
                 let parts: (&str, &str) = line.split_at(1);

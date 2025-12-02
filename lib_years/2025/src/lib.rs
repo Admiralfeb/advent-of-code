@@ -7,7 +7,8 @@ pub struct Year2025;
 
 impl_year!(Year2025, 2025, {
     unit: [
-        1 => day1
+        1 => day1,
+        2 => day2
     ]
     default: []
 });

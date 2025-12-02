@@ -40,3 +40,8 @@ pub fn get_data_path(year: i32, file_name: &str) -> PathBuf {
         .join("data")
         .join(file_name)
 }
+
+pub fn process_file_into_lines(path: &Path) -> io::Result<Vec<String>> {
+    let content = read_file(path)?;
+    Ok(content.lines().map(|line| line.to_string()).collect())
+}
