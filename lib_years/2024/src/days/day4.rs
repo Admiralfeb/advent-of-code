@@ -1,9 +1,6 @@
 use std::{collections::HashSet, path::Path};
 
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 use grid::*;
 
 use crate::common_values::YEAR;
@@ -407,14 +404,8 @@ struct LetterCoordinate {
     col: i64,
 }
 
-#[derive(Debug)]
-struct WordCoordinate {
-    x: LetterCoordinate,
-    m: LetterCoordinate,
-    a: LetterCoordinate,
-    s: LetterCoordinate,
-}
 #[derive(Debug, Clone)]
+#[allow(dead_code)]
 struct MasCoordinate {
     m: LetterCoordinate,
     a: LetterCoordinate,
@@ -444,10 +435,7 @@ enum MasDirection {
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     const TEST_DATA_PATH: &str = "day4-test.txt";
 
@@ -461,6 +449,7 @@ mod test {
     }
 
     // #[test]
+    #[allow(dead_code)]
     fn test_puzzle2() {
         let path = get_data_path(YEAR, TEST_DATA_PATH);
         let day = Day;

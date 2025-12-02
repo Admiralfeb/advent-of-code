@@ -1,7 +1,4 @@
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 use std::{fmt::Debug, path::Path};
 
 use crate::common_values::YEAR;
@@ -125,9 +122,7 @@ fn eval_safety(levels: &Vec<i64>) -> Vec<ReactorResult> {
         let result = ReactorResult {
             is_increase: increase,
             is_decrease: decrease,
-            diff,
             is_safe,
-            value: current,
         };
         results.push(result);
 
@@ -142,18 +137,13 @@ struct ReactorResult {
     is_safe: bool,
     is_increase: bool,
     is_decrease: bool,
-    diff: i64,
-    value: i64,
 }
 
 #[cfg(test)]
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     #[test]
     fn test_puzzle1() {

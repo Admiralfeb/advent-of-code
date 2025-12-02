@@ -1,9 +1,6 @@
 use std::path::Path;
 
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 use regex::Regex;
 
 use crate::common_values::YEAR;
@@ -97,18 +94,11 @@ struct Instruction {
     second_number: i64,
 }
 
-enum Operator {
-    Multiply,
-}
-
 #[cfg(test)]
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     #[test]
     fn test_puzzle1() {

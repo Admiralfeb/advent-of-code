@@ -1,7 +1,4 @@
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 use std::path::Path;
 
 use crate::common_values::YEAR;
@@ -40,10 +37,7 @@ impl_day!(9, YEAR, "day9.txt", {
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     const TEST_DATA_PATH: &str = "day9-test.txt";
 
@@ -57,6 +51,7 @@ mod test {
     }
 
     // #[test]
+    #[allow(dead_code)]
     fn test_puzzle2() {
         let path = get_data_path(YEAR, TEST_DATA_PATH);
         let day = Day;

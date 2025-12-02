@@ -1,7 +1,7 @@
 use common::{file::read_file, impl_day};
 use fancy_regex::Regex;
 use rayon::prelude::*;
-use std::{error::Error, fmt::Debug, path::Path, sync::LazyLock};
+use std::{error::Error, path::Path, sync::LazyLock};
 
 use crate::common_values::YEAR;
 
