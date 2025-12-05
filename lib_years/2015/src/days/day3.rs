@@ -1,9 +1,6 @@
 use std::path::Path;
 
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 
 use crate::common_values::YEAR;
 

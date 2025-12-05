@@ -3,7 +3,7 @@ use std::{
     path::Path,
 };
 
-use common::{impl_day};
+use common::impl_day;
 use regex::Regex;
 
 use crate::common_values::YEAR;
@@ -68,10 +68,7 @@ impl_day!(1, YEAR, "day1-input.txt", {
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     #[test]
     fn test_puzzle1() {

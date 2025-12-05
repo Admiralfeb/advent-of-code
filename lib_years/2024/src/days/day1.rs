@@ -1,7 +1,4 @@
-use common::{
-    impl_day,
-    file::read_file,
-};
+use common::{file::read_file, impl_day};
 use std::{error::Error, path::Path};
 
 use crate::common_values::YEAR;
@@ -80,10 +77,7 @@ impl Day {
 mod test {
 
     use super::*;
-    use common::{
-        day::AdventDay,
-        file::get_data_path,
-    };
+    use common::{day::AdventDay, file::get_data_path};
 
     #[test]
     fn test_puzzle1() {
