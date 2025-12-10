@@ -6,7 +6,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(3, YEAR, "day3.txt", {
+impl_day!(3, YEAR, "day03.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         let result = Day::distinct_houses(&string);

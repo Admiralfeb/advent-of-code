@@ -6,7 +6,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(3, YEAR, "day3.txt", {
+impl_day!(3, YEAR, "day03.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let lines = process_file_into_lines(path)?;
 
@@ -126,7 +126,7 @@ mod test {
     use super::*;
     use common::{day::AdventDay, file::get_data_path};
 
-    const TEST_DATA_PATH: &str = "day3-test.txt";
+    const TEST_DATA_PATH: &str = "day03-test.txt";
 
     #[test]
     fn test_puzzle1() {

@@ -11,7 +11,7 @@ static OP_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\+|\*").unwrap(
 
 pub struct Day;
 
-impl_day!(6, YEAR, "day6.txt", {
+impl_day!(6, YEAR, "day06.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let lines = process_file_into_lines(path)?;
 
@@ -136,7 +136,7 @@ mod test {
     use super::*;
     use common::{day::AdventDay, file::get_data_path};
 
-    const TEST_DATA_PATH: &str = "day6-test.txt";
+    const TEST_DATA_PATH: &str = "day06-test.txt";
 
     #[test]
     fn test_puzzle1() {

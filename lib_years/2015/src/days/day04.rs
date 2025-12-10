@@ -6,7 +6,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(4, YEAR, "day4.txt", {
+impl_day!(4, YEAR, "day04.txt", {
     puzzle1: |_day: &Day, _path: &Path| {
         let string = "yzbqklnj";
         let result = Day::calc_hash(&string, 5);

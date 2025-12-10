@@ -5,7 +5,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(1, YEAR, "day1.txt", {
+impl_day!(1, YEAR, "day01.txt", {
     puzzle1: |day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         let mut lists = day.make_lists(string)?;
@@ -81,7 +81,7 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let path = get_data_path(YEAR, "day1-test.txt");
+        let path = get_data_path(YEAR, "day01-test.txt");
 
         let day = Day;
         let result = day.puzzle1(&path).unwrap();
@@ -91,7 +91,7 @@ mod test {
 
     #[test]
     fn test_puzzle2() {
-        let path = get_data_path(YEAR, "day1-test.txt");
+        let path = get_data_path(YEAR, "day01-test.txt");
 
         let day = Day;
         let result = day.puzzle2(&path).unwrap();

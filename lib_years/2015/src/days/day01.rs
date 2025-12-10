@@ -6,7 +6,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(1, YEAR, "day1.txt", {
+impl_day!(1, YEAR, "day01.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         let result = Day::eval_elevator(&string, None);

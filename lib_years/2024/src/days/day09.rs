@@ -5,7 +5,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(9, YEAR, "day9.txt", {
+impl_day!(9, YEAR, "day09.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
 
@@ -39,7 +39,7 @@ mod test {
     use super::*;
     use common::{day::AdventDay, file::get_data_path};
 
-    const TEST_DATA_PATH: &str = "day9-test.txt";
+    const TEST_DATA_PATH: &str = "day09-test.txt";
 
     #[test]
     fn test_puzzle1() {

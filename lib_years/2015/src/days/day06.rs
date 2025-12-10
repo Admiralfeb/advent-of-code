@@ -19,7 +19,7 @@ impl Default for Day {
     }
 }
 
-impl_day!(6, YEAR, "day6.txt", {
+impl_day!(6, YEAR, "day06.txt", {
     puzzle1: |day: &Day, path: &Path| {
         let file_string = read_file(path).unwrap();
         let lights_on = day.process_data(file_string);

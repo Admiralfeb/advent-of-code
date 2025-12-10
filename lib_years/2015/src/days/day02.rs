@@ -6,7 +6,7 @@ use crate::common_values::YEAR;
 
 pub struct Day;
 
-impl_day!(2, YEAR, "day2.txt", {
+impl_day!(2, YEAR, "day02.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let string = read_file(path).unwrap();
         Day::process_data(string, Day::calc_wrapping_paper)

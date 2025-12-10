@@ -3,7 +3,7 @@ use std::{error::Error, fs, path::Path};
 use regex::Regex;
 
 pub fn print_puzzles() {
-    let path = Path::new("data/day3-input.txt");
+    let path = Path::new("data/day03-input.txt");
     println!(
         "day 3 results: {}, {}",
         puzzle1(path).unwrap(),
@@ -160,14 +160,14 @@ mod test {
 
     #[test]
     fn test_puzzle1() {
-        let result = puzzle1(Path::new("data/day3-test-input.txt"));
+        let result = puzzle1(Path::new("data/day03-test-input.txt"));
 
         assert_eq!(4361, result.unwrap())
     }
 
     #[test]
     fn test_puzzle2() {
-        let result = puzzle2(Path::new("data/day3-test-input.txt"));
+        let result = puzzle2(Path::new("data/day03-test-input.txt"));
 
         assert_eq!(467835, result.unwrap())
     }

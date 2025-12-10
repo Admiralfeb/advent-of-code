@@ -1,7 +1,7 @@
 use std::{error::Error, fs, path::Path};
 
 pub fn print_puzzles() {
-    let path = Path::new("data/day4-input.txt");
+    let path = Path::new("data/day04-input.txt");
     println!(
         "day 4 results: {}, {}",
         puzzle1(path).unwrap(),
@@ -129,7 +129,7 @@ fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
 mod test {
     use super::*;
 
-    static TEST_DATA: &str = "data/day4-test-input.txt";
+    static TEST_DATA: &str = "data/day04-test-input.txt";
     #[test]
     fn test_puzzle1() {
         let result = puzzle1(Path::new(TEST_DATA));

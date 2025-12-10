@@ -10,7 +10,7 @@ static REPEAT_REGEX: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"^(.+)\1+$")
 
 pub struct Day;
 
-impl_day!(2, YEAR, "day2.txt", {
+impl_day!(2, YEAR, "day02.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         puzzle(path, &*REPEAT_1_REGEX)
 
@@ -79,7 +79,7 @@ mod test {
     use super::*;
     use common::{day::AdventDay, file::get_data_path};
 
-    const TEST_DATA_PATH: &str = "day2-test.txt";
+    const TEST_DATA_PATH: &str = "day02-test.txt";
 
     #[test]
     fn test_puzzle1() {

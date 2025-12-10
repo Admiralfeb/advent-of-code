@@ -1,7 +1,7 @@
 use std::{error::Error, fs, num::ParseIntError, path::Path};
 
 pub fn print_puzzles() {
-    let path = Path::new("data/day6-input.txt");
+    let path = Path::new("data/day06-input.txt");
     println!(
         "day 6 results: {}, {}",
         puzzle1(path).unwrap(),
@@ -83,7 +83,7 @@ fn parse_nums2(input: &str) -> Result<i64, ParseIntError> {
 mod test {
     use super::*;
 
-    static TEST_DATA: &str = "data/day6-test-input.txt";
+    static TEST_DATA: &str = "data/day06-test-input.txt";
     #[test]
     fn test_puzzle1() {
         let result = puzzle1(Path::new(TEST_DATA));
