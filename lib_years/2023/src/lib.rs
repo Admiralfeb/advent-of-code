@@ -9,6 +9,10 @@ impl_year!(Year2023, 2023, {
     unit: [
         1 => day01,
         2 => day02,
+        3 => day03,
+        4 => day04,
+        5 => day05,
+        6 => day06,
     ]
     default: []
 });

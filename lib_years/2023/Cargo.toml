@@ -6,5 +6,6 @@ edition = "2021"
 [dependencies]
 common.workspace = true
 regex.workspace = true
+rayon.workspace = true
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html

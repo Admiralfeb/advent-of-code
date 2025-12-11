@@ -28,6 +28,7 @@ dependencies = [
  "fancy-regex",
  "grid",
  "md5",
+ "rayon",
  "regex",
  "test-case",
 ]
@@ -86,6 +87,7 @@ name = "advent_2023"
 version = "0.1.0"
 dependencies = [
  "common",
+ "rayon",
  "regex",
 ]
 
@@ -95,6 +97,7 @@ version = "0.1.0"
 dependencies = [
  "common",
  "grid",
+ "rayon",
  "regex",
 ]
 

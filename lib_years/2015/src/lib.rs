@@ -14,9 +14,8 @@ impl_year!(Year2015, 2015, {
         3 => day03,
         4 => day04,
         5 => day05,
+        6 => day06,
         7 => day07,
     ]
-    default: [
-        6 => day06,
-    ]
+    default: []
 });

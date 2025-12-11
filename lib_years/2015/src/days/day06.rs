@@ -1,68 +1,49 @@
 use std::path::Path;
+use std::time::Instant;
 
 use common::{file::read_file, impl_day};
 use grid::Grid;
 
 use crate::common_values::YEAR;
 
-pub struct Day {
-    grid: Grid<bool>,
-    grid2: Grid<i32>,
-}
-
-impl Default for Day {
-    fn default() -> Self {
-        Self {
-            grid: Grid::new(1000, 1000),
-            grid2: Grid::new(1000, 1000),
-        }
-    }
-}
+pub struct Day;
 
 impl_day!(6, YEAR, "day06.txt", {
-    puzzle1: |day: &Day, path: &Path| {
+    puzzle1: |_day: &Day, path: &Path| {
         let file_string = read_file(path).unwrap();
-        let lights_on = day.process_data(file_string);
+        let start = Instant::now();
+        let lights_on = Day::process_data(file_string);
+        println!("Day 6 Puzzle 1 took: {:?}", start.elapsed());
         Ok(lights_on)
     },
-    puzzle2: |day: &Day, path: &Path| {
+    puzzle2: |_day: &Day, path: &Path| {
         let file_string = read_file(path).unwrap();
-        let total_brightness = day.process_data_p2(file_string);
+        let start = Instant::now();
+        let total_brightness = Day::process_data_p2(file_string);
+        println!("Day 6 Puzzle 2 took: {:?}", start.elapsed());
         Ok(total_brightness)
     },
 });
 
 impl Day {
-    fn process_data(&self, file_string: String) -> i32 {
-        let mut grid = self.grid.clone();
+    fn process_data(file_string: String) -> i32 {
+        let mut grid = Grid::new(1000, 1000);
         for line in file_string.lines() {
             let cmd = Day::create_cmd(line);
             Day::process_cmd(&mut grid, cmd);
         }
 
-        let mut lights_on = 0;
-        for c in grid.iter() {
-            if *c == true {
-                lights_on += 1;
-            }
-        }
-
-        lights_on
+        grid.iter().filter(|&&c| c).count() as i32
     }
 
-    fn process_data_p2(&self, file_string: String) -> i32 {
-        let mut grid = self.grid2.clone();
+    fn process_data_p2(file_string: String) -> i32 {
+        let mut grid = Grid::new(1000, 1000);
         for line in file_string.lines() {
             let cmd = Day::create_cmd(line);
             Day::process_cmd_p2(&mut grid, cmd);
         }
 
-        let mut total_brightness = 0;
-        for c in grid.iter() {
-            total_brightness += *c;
-        }
-
-        total_brightness
+        grid.iter().sum()
     }
 
     fn create_cmd(line: &str) -> Command {
@@ -173,12 +154,11 @@ mod test {
 
     #[test]
     fn test_process_cmd_0_999() {
-        let mut day = Day::default();
+        let mut grid = Grid::new(1000, 1000);
         let cmd = Day::create_cmd("turn on 0,0 through 999,999");
 
-        Day::process_cmd(&mut day.grid, cmd);
-        let g = day.grid;
-        for cell in g.iter() {
+        Day::process_cmd(&mut grid, cmd);
+        for cell in grid.iter() {
             assert_eq!(true, *cell)
         }
     }

@@ -5,6 +5,7 @@ edition = "2021"
 
 [dependencies]
 md5 = "0.7.0"
+rayon.workspace = true
 common.workspace = true
 test-case.workspace = true
 regex.workspace = true

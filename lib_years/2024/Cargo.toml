@@ -7,3 +7,4 @@ edition = "2021"
 common.workspace = true
 grid.workspace = true
 regex.workspace = true
+rayon.workspace = true

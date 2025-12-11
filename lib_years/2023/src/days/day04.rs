@@ -1,13 +1,10 @@
 use std::{error::Error, fs, path::Path};
 
-pub fn print_puzzles() {
-    let path = Path::new("data/day04-input.txt");
-    println!(
-        "day 4 results: {}, {}",
-        puzzle1(path).unwrap(),
-        puzzle2(path).unwrap()
-    )
-}
+use common::impl_day;
+
+use crate::common_values::YEAR;
+
+pub struct Day;
 
 #[derive(Debug, Clone)]
 struct Card {
@@ -82,64 +79,77 @@ impl Card {
     }
 }
 
-fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
-    let input_value = fs::read_to_string(path)?;
+impl_day!(4, YEAR, "day04-input.txt", {
+    puzzle1: |_day: &Day, path: &Path| {
+        Ok(Day::puzzle1(path)?)
+    },
+    puzzle2: |_day: &Day, path: &Path| {
+        Ok(Day::puzzle2(path)?)
+    },
+});
 
-    let cards: Vec<Card> = input_value.lines().map(Card::parse).collect();
+impl Day {
+    fn puzzle1(path: &Path) -> Result<i32, Box<dyn Error>> {
+        let input_value = fs::read_to_string(path)?;
 
-    let mut result = 0;
-    for card in cards {
-        result += card.points();
-    }
+        let cards: Vec<Card> = input_value.lines().map(Card::parse).collect();
 
-    Ok(result)
-}
-
-fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
-    let input_value = fs::read_to_string(path)?;
-
-    let cards: Vec<Card> = input_value.lines().map(Card::parse).collect();
-
-    let mut cards_to_process: Vec<Card> = cards.clone();
-    let mut total_cards: i32 = 0;
-    while !cards_to_process.is_empty() {
-        let mut new_cards_to_process: Vec<Card> = Vec::new();
-        for c in cards_to_process.iter_mut() {
-            total_cards += 1;
-            let matches = c.winners();
-            for m in c.index + 1..=c.index + matches {
-                let copy_card = cards.iter().find(|card| card.index == m).unwrap();
-                new_cards_to_process.push(copy_card.clone());
-            }
-            c.processed = true;
+        let mut result = 0;
+        for card in cards {
+            result += card.points();
         }
-        println!(
-            "cards left: {} | cards processed: {}",
-            new_cards_to_process.len(),
-            total_cards
-        );
-        cards_to_process.retain(|c| !c.processed);
-        cards_to_process.append(&mut new_cards_to_process);
+
+        Ok(result)
     }
 
-    Ok(total_cards)
+    fn puzzle2(path: &Path) -> Result<i32, Box<dyn Error>> {
+        let input_value = fs::read_to_string(path)?;
+
+        let cards: Vec<Card> = input_value.lines().map(Card::parse).collect();
+
+        let mut cards_to_process: Vec<Card> = cards.clone();
+        let mut total_cards: i32 = 0;
+        while !cards_to_process.is_empty() {
+            let mut new_cards_to_process: Vec<Card> = Vec::new();
+            for c in cards_to_process.iter_mut() {
+                total_cards += 1;
+                let matches = c.winners();
+                for m in c.index + 1..=c.index + matches {
+                    let copy_card = cards.iter().find(|card| card.index == m).unwrap();
+                    new_cards_to_process.push(copy_card.clone());
+                }
+                c.processed = true;
+            }
+            println!(
+                "cards left: {} | cards processed: {}",
+                new_cards_to_process.len(),
+                total_cards
+            );
+            cards_to_process.retain(|c| !c.processed);
+            cards_to_process.append(&mut new_cards_to_process);
+        }
+
+        Ok(total_cards)
+    }
 }
 
 #[cfg(test)]
 mod test {
     use super::*;
+    use common::file::get_data_path;
 
-    static TEST_DATA: &str = "data/day04-test-input.txt";
     #[test]
     fn test_puzzle1() {
-        let result = puzzle1(Path::new(TEST_DATA));
+        let path = get_data_path(YEAR, "day04-test-input.txt");
+        let result = Day::puzzle1(&path);
 
         assert_eq!(13, result.unwrap())
     }
 
     #[test]
     fn test_puzzle2() {
-        let result = puzzle2(Path::new(TEST_DATA));
+        let path = get_data_path(YEAR, "day04-test-input.txt");
+        let result = Day::puzzle2(&path);
 
         assert_eq!(30, result.unwrap())
     }

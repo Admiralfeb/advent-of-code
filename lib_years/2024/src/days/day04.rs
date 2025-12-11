@@ -1,4 +1,4 @@
-use std::{collections::HashSet, path::Path};
+use std::{collections::HashSet, path::Path, time::Instant};
 
 use common::{file::read_file, impl_day};
 use grid::*;
@@ -10,6 +10,7 @@ pub struct Day;
 impl_day!(4, YEAR, "day04.txt", {
     puzzle1: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
+        let start = Instant::now();
         let mut number_found: i64 = 0;
 
         let lines = binding.lines();
@@ -28,10 +29,12 @@ impl_day!(4, YEAR, "day04.txt", {
                 number_found += check_for_word(r, c, &grid);
             }
         }
+        println!("Day 4 Puzzle 1 took: {:?}", start.elapsed());
         Ok(number_found)
     },
     puzzle2: |_day: &Day, path: &Path| {
         let binding = read_file(path)?;
+        let start = Instant::now();
 
         let lines = binding.lines();
 
@@ -44,11 +47,11 @@ impl_day!(4, YEAR, "day04.txt", {
         let right_bound = (grid.cols()) as i64;
         let bottom_bound = (grid.rows()) as i64;
 
-        let mut mas_matches = Vec::new();
+        let mut mas_matches = Vec::with_capacity((right_bound * bottom_bound) as usize);
 
         for r in 0..bottom_bound {
             for c in 0..right_bound {
-                mas_matches = [mas_matches, check_for_mas(r, c, &grid)].concat();
+                mas_matches.extend(check_for_mas(r, c, &grid));
             }
         }
         println!("mas matches: {}", mas_matches.len());
@@ -59,6 +62,7 @@ impl_day!(4, YEAR, "day04.txt", {
         let mut deduped = HashSet::new();
         all_a_coords.retain(|e| !deduped.insert(e.clone()));
 
+        println!("Day 4 Puzzle 2 took: {:?}", start.elapsed());
         Ok(all_a_coords.len())
     },
 });
@@ -133,7 +137,7 @@ fn check_for_letter(
                 col,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::NorthEast => {
             let m_coor = LetterCoordinate {
@@ -149,7 +153,7 @@ fn check_for_letter(
                 col: col + 3,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::East => {
             let row = x_coor.row;
@@ -157,7 +161,7 @@ fn check_for_letter(
             let a_coor = LetterCoordinate { row, col: col + 2 };
             let s_coor = LetterCoordinate { row, col: col + 3 };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::SouthEast => {
             let m_coor = LetterCoordinate {
@@ -173,7 +177,7 @@ fn check_for_letter(
                 col: col + 3,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::South => {
             let m_coor = LetterCoordinate {
@@ -189,7 +193,7 @@ fn check_for_letter(
                 col,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::SouthWest => {
             let m_coor = LetterCoordinate {
@@ -205,7 +209,7 @@ fn check_for_letter(
                 col: col - 3,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::West => {
             let row = x_coor.row;
@@ -213,7 +217,7 @@ fn check_for_letter(
             let a_coor = LetterCoordinate { row, col: col - 2 };
             let s_coor = LetterCoordinate { row, col: col - 3 };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
         WordDirection::NorthWest => {
             let m_coor = LetterCoordinate {
@@ -229,7 +233,7 @@ fn check_for_letter(
                 col: col - 3,
             };
 
-            word_matches(grid, direction, x_coor.clone(), m_coor, a_coor, s_coor)
+            word_matches(grid, direction, &m_coor, &a_coor, &s_coor)
         }
     }
 }
@@ -237,32 +241,17 @@ fn check_for_letter(
 fn word_matches(
     grid: &Grid<char>,
     _direction: WordDirection,
-    _x_coor: LetterCoordinate,
-    m_coor: LetterCoordinate,
-    a_coor: LetterCoordinate,
-    s_coor: LetterCoordinate,
+    m_coor: &LetterCoordinate,
+    a_coor: &LetterCoordinate,
+    s_coor: &LetterCoordinate,
 ) -> bool {
     let m_option = grid.get(m_coor.row, m_coor.col);
     let a_option = grid.get(a_coor.row, a_coor.col);
     let s_option = grid.get(s_coor.row, s_coor.col);
 
-    if m_option.is_some_and(|x| *x == 'M')
+    m_option.is_some_and(|x| *x == 'M')
         && a_option.is_some_and(|x| *x == 'A')
         && s_option.is_some_and(|x| *x == 'S')
-    {
-        // let word = WordCoordinate {
-        //     x: x_coor,
-        //     m: m_coor,
-        //     a: a_coor,
-        //     s: s_coor,
-        // };
-        // println!(
-        //     "word match found: \n\tdirection: {:?} \n\tlocation: {:?}",
-        //     direction, word
-        // );
-        return true;
-    }
-    false
 }
 
 fn check_for_mas(row: i64, column: i64, grid: &Grid<char>) -> Vec<MasCoordinate> {
